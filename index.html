@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:#f0f4f8;color:#1a202c;font-size:15px;line-height:1.7;}
+  .page{max-width:900px;margin:0 auto;background:#fff;}
+
+  .cover{background:linear-gradient(135deg,#1a365d 0%,#2b6cb0 60%,#4299e1 100%);color:#fff;padding:60px 50px;text-align:center;position:relative;overflow:hidden;}
+  .cover::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:rgba(255,255,255,.06);border-radius:50%;}
+  .cover::after{content:'';position:absolute;bottom:-60px;left:-40px;width:280px;height:280px;background:rgba(255,255,255,.04);border-radius:50%;}
+  .cover h1{font-size:32px;font-weight:800;margin-bottom:10px;position:relative;}
+  .cover h2{font-size:18px;font-weight:400;opacity:.85;position:relative;}
+  .cover .badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 18px;font-size:13px;margin-top:20px;position:relative;}
+
+  section{padding:36px 50px;border-bottom:1px solid #e2e8f0;}
+  section:last-child{border-bottom:none;}
+  h2.sec{font-size:20px;font-weight:700;color:#1a365d;margin-bottom:18px;padding-bottom:8px;border-bottom:3px solid #4299e1;display:flex;align-items:center;gap:10px;}
+  h2.sec span.icon{font-size:22px;}
+  h3{font-size:16px;font-weight:700;color:#2b6cb0;margin:18px 0 8px;}
+  p{margin-bottom:12px;color:#2d3748;}
+  ul,ol{padding-left:22px;margin-bottom:12px;}
+  li{margin-bottom:6px;color:#2d3748;}
+  strong{color:#1a365d;}
+
+  .alert{background:#fff5f5;border-left:4px solid #fc8181;border-radius:6px;padding:14px 18px;margin:14px 0;}
+  .alert strong{color:#c53030;}
+  .tip{background:#ebf8ff;border-left:4px solid #4299e1;border-radius:6px;padding:14px 18px;margin:14px 0;}
+  .tip strong{color:#2b6cb0;}
+  .success{background:#f0fff4;border-left:4px solid #48bb78;border-radius:6px;padding:14px 18px;margin:14px 0;}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;}
+  th{background:#1a365d;color:#fff;padding:10px 14px;text-align:left;}
+  td{padding:9px 14px;border-bottom:1px solid #e2e8f0;}
+  tr:nth-child(even) td{background:#f7fafc;}
+
+  .mandamentos{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;}
+  .mand{background:linear-gradient(135deg,#ebf8ff,#bee3f8);border-radius:10px;padding:14px;display:flex;align-items:flex-start;gap:10px;}
+  .mand .num{background:#2b6cb0;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0;}
+
+  .gloss{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+  .gitem{background:#f7fafc;border-radius:8px;padding:12px;}
+  .gitem .term{font-weight:700;color:#2b6cb0;margin-bottom:4px;}
+
+  .ilust{display:flex;justify-content:center;margin:18px 0;}
+  svg text{font-family:'Inter',sans-serif;}
+
+  .fluxo{background:#f7fafc;border-radius:10px;padding:20px;margin:14px 0;}
+
+  .quiz-container { padding: 20px 0; }
+  .question { margin-bottom: 25px; background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; }
+  .question p { font-weight: 700; color: #1a365d; margin-bottom: 15px; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option { padding: 12px 15px; background: #fff; border: 2px solid #e2e8f0; border-radius: 8px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 10px; }
+  .option:hover { border-color: #4299e1; background: #ebf8ff; }
+  .option.selected { border-color: #2b6cb0; background: #bee3f8; }
+  .option.correct { border-color: #48bb78; background: #f0fff4; }
+  .option.wrong { border-color: #f56565; background: #fff5f5; }
+  .quiz-footer { text-align: center; margin-top: 30px; padding: 20px; background: #1a365d; color: #fff; border-radius: 10px; }
+  .btn-result { background: #4299e1; color: #fff; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 700; cursor: pointer; font-size: 16px; transition: background 0.2s; }
+  .btn-result:hover { background: #2b6cb0; }
+  #score-display { font-size: 20px; font-weight: 800; margin-top: 15px; display: none; }
+
+  @media print{
+    body{background:#fff;}
+    .page{max-width:100%;}
+    section{page-break-inside:avoid;}
+    .btn-result, .options { display: block; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <div style="font-size:60px;margin-bottom:16px;"></div>
+  <h1>Manutenção de Computadores de Mesa</h1>
+  <h2>Aula Prática para Iniciantes</h2>
+  <div class="badge">Apostila Completa</div>
+</div>
+
+<section>
+  <h2 class="sec"><span class="icon"></span> Regras de Segurança</h2>
+  <div class="alert"><strong>Nunca pule esta parte!</strong> Estas regras evitam choques elétricos, danos às peças e acidentes.</div>
+
+  <div class="ilust">
+    <svg viewBox="0 0 700 160" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="700" height="160" rx="12" fill="#fff5f5"></rect>
+      <!-- Item 1 -->
+      <circle cx="70" r="44" fill="#fed7d7" stroke-width="2" stroke="#fc8181" cy="80"></circle>
+      
+      <text x="70" text-anchor="middle" font-size="11" fill="#c53030" font-weight="700" y="80">Desligue da</text>
+      <text x="70" text-anchor="middle" font-size="11" fill="#c53030" font-weight="700" y="90">tomada</text>
+      <!-- Item 2 -->
+      <circle cx="210" cy="80" r="44" fill="#fefcbf" stroke="#f6e05e" stroke-width="2"></circle>
+      
+      <text x="210" text-anchor="middle" font-size="11" fill="#975a16" font-weight="700" y="80">Toque no</text>
+      <text x="210" text-anchor="middle" font-size="11" fill="#975a16" font-weight="700" y="90">metal 10s</text>
+      <!-- Item 3 -->
+      <circle cx="350" cy="80" r="44" fill="#fed7d7" stroke="#fc8181" stroke-width="2"></circle>
+      <text x="350" y="68" text-anchor="middle" font-size="26"></text>
+      <text x="350" text-anchor="middle" font-size="11" fill="#c53030" font-weight="700" y="80">Não abra</text>
+      <text x="350" text-anchor="middle" font-size="11" fill="#c53030" font-weight="700" y="90">a fonte</text>
+      <!-- Item 4 -->
+      <circle cx="490" cy="80" r="44" fill="#c6f6d5" stroke="#68d391" stroke-width="2"></circle>
+      <text x="490" y="68" text-anchor="middle" font-size="26"></text>
+      <text x="490" text-anchor="middle" font-size="11" fill="#276749" font-weight="700" y="80">Tire fotos</text>
+      <text x="490" text-anchor="middle" font-size="11" fill="#276749" font-weight="700" y="90">antes</text>
+      <!-- Item 5 -->
+      <circle cx="630" cy="80" r="44" fill="#bee3f8" stroke="#90cdf4" stroke-width="2"></circle>
+      <text x="630" y="68" text-anchor="middle" font-size="26"></text>
+      <text x="630" text-anchor="middle" font-size="11" fill="#2c5282" font-weight="700" y="80">Guarde os</text>
+      <text x="630" text-anchor="middle" font-size="11" fill="#2c5282" font-weight="700" y="90">parafusos</text>
+    </svg>
+  </div>
+
+  <ul>
+    <li><strong>Desligue da tomada</strong> — não basta só apertar o botão de desligar.</li>
+    <li><strong>Toque na parte metálica do gabinete por 10 segundos</strong> — descarrega a estática do corpo (pulseira antiestática é ainda melhor).</li>
+    <li><strong>Nunca abra a fonte de alimentação</strong> — ela guarda energia mesmo desligada.</li>
+    <li><strong>Cuidado com bordas afiadas</strong> do gabinete.</li>
+    <li><strong>Tire foto e guarde parafusos</strong> antes de desmontar qualquer coisa.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec"><span class="icon"></span> As Peças Principais</h2>
+
+  <div class="ilust">
+    <svg viewBox="0 0 700 340" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="680" height="320" rx="14" fill="#edf2f7" stroke="#a0aec0" stroke-width="2"></rect>
+      <text x="350" y="35" text-anchor="middle" font-size="13" fill="#718096" font-weight="600">GABINETE ABERTO — Vista Esquemática</text>
+
+      <rect x="30" y="50" width="380" height="260" rx="8" fill="#c6f6d5" stroke="#48bb78" stroke-width="2"></rect>
+      <text x="220" y="75" text-anchor="middle" font-size="13" fill="#276749" font-weight="700">Placa-mãe</text>
+
+      <rect x="55" y="90" width="90" height="80" rx="6" fill="#fbd38d" stroke="#ed8936" stroke-width="2"></rect>
+      <text x="100" y="128" text-anchor="middle" font-size="12" fill="#7b341e" font-weight="700">CPU</text>
+      <text x="100" y="145" text-anchor="middle" font-size="10" fill="#7b341e">+ Cooler</text>
+
+      <rect x="175" y="90" width="30" height="120" rx="4" fill="#bee3f8" stroke="#4299e1" stroke-width="2"></rect>
+      <text x="190" y="135" text-anchor="middle" font-size="9" fill="#2c5282" font-weight="700" transform="rotate(-90,190,135)">RAM</text>
+      <rect x="215" y="90" width="30" height="120" rx="4" fill="#bee3f8" stroke="#4299e1" stroke-width="2"></rect>
+      <text x="230" y="135" text-anchor="middle" font-size="9" fill="#2c5282" font-weight="700" transform="rotate(-90,230,135)">RAM</text>
+
+      <circle cx="310" cy="200" r="24" fill="#fefcbf" stroke="#f6e05e" stroke-width="2"></circle>
+      <text x="310" y="197" text-anchor="middle" font-size="9" fill="#975a16" font-weight="700">BAT</text>
+      <text x="310" y="210" text-anchor="middle" font-size="9" fill="#975a16">CMOS</text>
+
+      <rect x="55" y="240" width="130" height="55" rx="6" fill="#e9d8fd" stroke="#9f7aea" stroke-width="2"></rect>
+      <text x="120" y="265" text-anchor="middle" font-size="12" fill="#553c9a" font-weight="700">HD / SSD</text>
+      <text x="120" y="282" text-anchor="middle" font-size="10" fill="#553c9a">cabo SATA</text>
+
+      <rect x="440" y="130" width="200" height="90" rx="8" fill="#fed7d7" stroke="#fc8181" stroke-width="2"></rect>
+      <text x="540" y="165" text-anchor="middle" font-size="13" fill="#742a2a" font-weight="700">Placa de Vídeo</text>
+      <text x="540" y="183" text-anchor="middle" font-size="11" fill="#742a2a">(GPU)</text>
+      <text x="540" y="200" text-anchor="middle" font-size="10" fill="#742a2a">cabo 6/8 pinos</text>
+
+      <rect x="440" y="240" width="200" height="80" rx="8" fill="#feebc8" stroke="#ed8936" stroke-width="2"></rect>
+      <text x="540" y="278" text-anchor="middle" font-size="13" fill="#7b341e" font-weight="700">Fonte</text>
+      <text x="540" y="298" text-anchor="middle" font-size="10" fill="#7b341e">Alimentação</text>
+
+      <line x1="440" y1="175" x2="410" y2="175" stroke="#fc8181" stroke-width="2" stroke-dasharray="4"></line>
+      <polygon points="412,170 402,175 412,180" fill="#fc8181"></polygon>
+
+      <line x1="440" y1="270" x2="410" y2="270" stroke="#ed8936" stroke-width="2" stroke-dasharray="4"></line>
+      <polygon points="412,265 402,270 412,275" fill="#ed8936"></polygon>
+    </svg>
+  </div>
+
+  <ul>
+    <li><strong>Placa-mãe:</strong> a placa grande onde tudo se conecta.</li>
+    <li><strong>Processador (CPU):</strong> o "cérebro". Fica embaixo do cooler.</li>
+    <li><strong>Cooler:</strong> ventilador + bloco de metal que resfria a CPU.</li>
+    <li><strong>Memória RAM:</strong> pentes retangulares — guardam o que está aberto agora.</li>
+    <li><strong>Placa de Vídeo (GPU):</strong> gera a imagem no monitor; precisa de cabo de energia extra.</li>
+    <li><strong>Fonte de Alimentação:</strong> transforma a energia da tomada para o PC.</li>
+    <li><strong>HD / SSD:</strong> onde ficam o Windows, seus arquivos e jogos.</li>
+    <li><strong>Bateria da placa-mãe:</strong> pequena e redonda, mantém data e hora.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec"><span class="icon"></span> Como Diagnosticar um Defeito</h2>
+  <div class="tip"><strong>Pense como detetive:</strong> observe primeiro, mexa depois. Não saia trocando peças aleatoriamente!</div>
+
+  <div class="ilust">
+    <svg viewBox="0 0 700 380" width="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="700" height="380" rx="12" fill="#f7fafc"></rect>
+
+      <rect x="270" y="10" width="160" height="44" rx="22" fill="#1a365d"></rect>
+      <text x="350" y="37" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">Liga o PC?</text>
+
+      <rect x="30" y="80" width="180" height="50" rx="8" fill="#fed7d7" stroke="#fc8181" stroke-width="1.5"></rect>
+      <text x="120" y="101" text-anchor="middle" font-size="12" fill="#742a2a" font-weight="700">NÃO</text>
+      <text x="120" y="117" text-anchor="middle" font-size="11" fill="#742a2a">Cheque tomada, cabo,</text>
+
+      <rect x="30" y="140" width="180" height="36" rx="6" fill="#fff" stroke="#a0aec0" stroke-width="1"></rect>
+      <text x="120" y="163" text-anchor="middle" font-size="11" fill="#2d3748">chave da fonte, fio PWR_SW</text>
+
+      <rect x="490" y="80" width="180" height="50" rx="8" fill="#c6f6d5" stroke="#48bb78" stroke-width="1.5"></rect>
+      <text x="580" y="101" text-anchor="middle" font-size="12" fill="#276749" font-weight="700">SIM ✓</text>
+      <text x="580" y="117" text-anchor="middle" font-size="11" fill="#276749">Aparece imagem?</text>
+
+      <rect x="490" y="160" width="180" height="50" rx="8" fill="#fefcbf" stroke="#f6e05e" stroke-width="1.5"></rect>
+      <text x="580" y="180" text-anchor="middle" font-size="11" fill="#975a16" font-weight="700">NÃO → Escute os bips</text>
+      <text x="580" y="197" text-anchor="middle" font-size="11" fill="#975a16">RAM ou GPU com defeito</text>
+
+      <rect x="490" y="230" width="180" height="50" rx="8" fill="#c6f6d5" stroke="#48bb78" stroke-width="1.5"></rect>
+      <text x="580" y="250" text-anchor="middle" font-size="11" fill="#276749" font-weight="700">SIM → Entrou no Windows?</text>
+      <text x="580" y="267" text-anchor="middle" font-size="11" fill="#276749">Se não: disco ou data</text>
+
+      <rect x="490" y="300" width="180" height="50" rx="8" fill="#bee3f8" stroke="#4299e1" stroke-width="1.5"></rect>
+      <text x="580" y="322" text-anchor="middle" font-size="11" fill="#2c5282" font-weight="700">Funcionando!</text>
+      <text x="580" y="339" text-anchor="middle" font-size="11" fill="#2c5282">Manutenção preventiva</text>
+
+      <line x1="350" y1="54" x2="210" y2="80" stroke="#1a365d" stroke-width="2"></line>
+      <polygon points="213,73 200,82 218,86" fill="#1a365d"></polygon>
+      <line x1="350" y1="54" x2="490" y2="80" stroke="#1a365d" stroke-width="2"></line>
+      <polygon points="487,73 500,82 482,86" fill="#1a365d"></polygon>
+      <line x1="580" y1="130" x2="580" y2="160" stroke="#2d3748" stroke-width="1.5"></line>
+      <polygon points="575,157 580,170 585,157" fill="#2d3748"></polygon>
+      <line x1="580" y1="210" x2="580" y2="230" stroke="#2d3748" stroke-width="1.5"></line>
+      <polygon points="575,227 580,240 585,227" fill="#2d3748"></polygon>
+      <line x1="580" y1="280" x2="580" y2="300" stroke="#2d3748" stroke-width="1.5"></line>
+      <polygon points="575,297 580,310 585,297" fill="#2d3748"></polygon>
+    </svg>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec"><span class="icon"></span> Códigos de Bips (BIOS AMI)</h2>
+  <p>O <strong>POST</strong> é o autoteste que o PC faz ao ligar. Se encontrar problema, emite bips pelo <strong>speaker</strong> — um alto-falante de dois fios encaixado nos pinos <em>SPEAKER</em> da placa-mãe.</p>
+
+  <div class="ilust">
+    <svg viewBox="0 0 500 110" width="80%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="500" height="110" rx="10" fill="#ebf8ff"></rect>
+
+      <rect x="30" y="30" width="60" height="50" rx="6" fill="#2b6cb0"></rect>
+      <circle cx="60" cy="55" r="18" fill="#bee3f8"></circle>
+      <circle cx="60" cy="55" r="10" fill="#2b6cb0"></circle>
+      <text x="60" y="96" text-anchor="middle" font-size="11" fill="#2c5282" font-weight="700">Speaker</text>
+
+      <line x1="90" y1="50" x2="180" y2="50" stroke="#1a365d" stroke-width="2.5"></line>
+      <line x1="90" y1="60" x2="180" y2="60" stroke="#e53e3e" stroke-width="2.5"></line>
+
+      <rect x="180" y="44" width="12" height="22" rx="2" fill="#718096"></rect>
+      <rect x="198" y="44" width="12" height="22" rx="2" fill="#718096"></rect>
+      <text x="204" y="80" text-anchor="middle" font-size="10" fill="#4a5568">SPEAKER</text>
+      <text x="204" y="93" text-anchor="middle" font-size="10" fill="#4a5568">pinos na placa-mãe</text>
+
+      <text x="280" y="50" font-size="28" fill="#4299e1"></text>
+      <text x="340" y="55" font-size="16" fill="#2b6cb0">BIP! BIP!</text>
+      <text x="340" y="78" font-size="12" fill="#4a5568">Conte o número e ritmo</text>
+    </svg>
+  </div>
+
+  <table>
+    <tbody><tr><th>Bips</th><th>Significado</th><th>O que fazer</th></tr>
+    <tr><td>1 curto</td><td>Tudo normal (POST OK)</td><td>Nada — PC passou no teste</td></tr>
+    <tr><td>1 longo + 2 curtos</td><td>Erro na placa de vídeo</td><td>Reencaixe a GPU e o cabo de energia</td></tr>
+    <tr><td>1 longo + 3 curtos</td><td>Erro na memória da GPU</td><td>Limpe os contatos da placa de vídeo</td></tr>
+    <tr><td>Longos contínuos</td><td>Erro na RAM</td><td>Remova, limpe com borracha, recoloque</td></tr>
+    <tr><td>3 curtos</td><td>Falha na RAM</td><td>Troque de slot ou use outro pente</td></tr>
+    <tr><td>5 curtos</td><td>Erro no processador</td><td>Recoloque a CPU (com supervisão)</td></tr>
+    <tr><td>8 curtos</td><td>Erro no vídeo integrado</td><td>Verifique se o vídeo onboard está ativo</td></tr>
+  </tbody></table>
+</section>
+
+
+<section>
+  <h2 class="sec"><span class="icon"></span> Problemas Comuns e Soluções</h2>
+
+
+  <h3>Problema 1 — PC não liga de jeito nenhum</h3>
+  <div class="ilust">
+    <svg viewBox="0 0 600 120" width="90%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="600" height="120" rx="10" fill="#fff5f5"></rect>
+      <text x="300" y="25" text-anchor="middle" font-size="13" fill="#c53030" font-weight="700">Checklist: PC não liga</text>
+
+      <rect x="20" y="40" width="130" height="64" rx="8" fill="#fed7d7" stroke="#fc8181" stroke-width="1"></rect>
+      <text x="85" y="64" text-anchor="middle" font-size="20"></text>
+      <text x="85" y="84" text-anchor="middle" font-size="11" fill="#742a2a" font-weight="600">Cabo firme</text>
+      <text x="85" y="98" text-anchor="middle" font-size="10" fill="#742a2a">tomada e fonte</text>
+
+      <rect x="165" y="40" width="130" height="64" rx="8" fill="#fed7d7" stroke="#fc8181" stroke-width="1"></rect>
+      <text x="230" y="64" text-anchor="middle" font-size="20"></text>
+      <text x="230" y="84" text-anchor="middle" font-size="11" fill="#742a2a" font-weight="600">Chave da fonte</text>
+      <text x="230" y="98" text-anchor="middle" font-size="10" fill="#742a2a">posição "I" = ligado</text>
+
+      <rect x="310" y="40" width="130" height="64" rx="8" fill="#fed7d7" stroke="#fc8181" stroke-width="1"></rect>
+      <text x="375" y="64" text-anchor="middle" font-size="20"></text>
+      <text x="375" y="84" text-anchor="middle" font-size="11" fill="#742a2a" font-weight="600">Filtro de linha</text>
+      <text x="375" y="98" text-anchor="middle" font-size="10" fill="#742a2a">está ligado?</text>
+
+      <rect x="455" y="40" width="130" height="64" rx="8" fill="#fed7d7" stroke="#fc8181" stroke-width="1"></rect>
+      <text x="520" y="64" text-anchor="middle" font-size="20"></text>
+      <text x="520" y="84" text-anchor="middle" font-size="11" fill="#742a2a" font-weight="600">Fio PWR_SW</text>
+      <text x="520" y="98" text-anchor="middle" font-size="10" fill="#742a2a">solto na placa-mãe?</text>
+    </svg>
+  </div>
+  <div class="tip"><strong>Teste rápido do botão:</strong> Com o PC 
+desligado DA TOMADA, encoste uma chave de fenda nos dois pinos PWR_SW 
+por 1 segundo. Se ligar, o problema é o fio do botão.</div>
+
+  <h3>Problema 2 — Liga, mas tela fica preta</h3>
+  <div class="ilust">
+    <svg viewBox="0 0 600 130" width="90%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="600" height="130" rx="10" fill="#ebf8ff"></rect>
+      <text x="300" y="25" text-anchor="middle" font-size="13" fill="#2c5282" font-weight="700">Como limpar a memória RAM</text>
+
+      <circle cx="60" cy="70" r="28" fill="#4299e1"></circle><text x="60" y="67" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">1</text><text x="60" y="81" text-anchor="middle" font-size="9" fill="#fff">Retire</text>
+      <line x1="88" y1="70" x2="112" y2="70" stroke="#4299e1" stroke-width="2"></line>
+      <circle cx="140" cy="70" r="28" fill="#4299e1"></circle><text x="140" y="67" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">2</text><text x="140" y="81" text-anchor="middle" font-size="9" fill="#fff">Borracha</text>
+      <line x1="168" y1="70" x2="192" y2="70" stroke="#4299e1" stroke-width="2"></line>
+      <circle cx="220" cy="70" r="28" fill="#4299e1"></circle><text x="220" y="67" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">3</text><text x="220" y="81" text-anchor="middle" font-size="9" fill="#fff">Ar no slot</text>
+      <line x1="248" y1="70" x2="272" y2="70" stroke="#4299e1" stroke-width="2"></line>
+      <circle cx="300" cy="70" r="28" fill="#4299e1"></circle><text x="300" y="67" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">4</text><text x="300" y="81" text-anchor="middle" font-size="9" fill="#fff">Reencaixe</text>
+      <line x1="328" y1="70" x2="352" y2="70" stroke="#4299e1" stroke-width="2"></line>
+      <circle cx="380" cy="70" r="28" fill="#48bb78"></circle><text x="380" y="67" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">5</text><text x="380" y="81" text-anchor="middle" font-size="9" fill="#fff">Teste!</text>
+
+      <text x="60" y="112" text-anchor="middle" font-size="10" fill="#2c5282">Destrave e tire</text>
+      <text x="140" y="112" text-anchor="middle" font-size="10" fill="#2c5282">Nos contatos</text>
+      <text x="220" y="112" text-anchor="middle" font-size="10" fill="#2c5282">ou assopre</text>
+      <text x="300" y="112" text-anchor="middle" font-size="10" fill="#2c5282">Clique = ok</text>
+      <text x="380" y="112" text-anchor="middle" font-size="10" fill="#276749">Ligue o PC</text>
+    </svg>
+  </div>
+
+
+  <h3>Problema 3 — Sem vídeo com GPU dedicada</h3>
+  <ul>
+    <li>O cabo do monitor está na <strong>saída da GPU</strong> (abaixo), e não da placa-mãe?</li>
+    <li>A placa de vídeo tem <strong>cabo de energia extra</strong> (6 ou 8 pinos) conectado?</li>
+    <li>Retire a GPU e teste no <strong>vídeo integrado</strong> — se funcionar, o defeito está na GPU.</li>
+  </ul>
+
+
+  <h3>Problema 4 — Desliga sozinho / muito lento</h3>
+  <div class="ilust">
+    <svg viewBox="0 0 580 120" width="90%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="580" height="120" rx="10" fill="#fff5f5"></rect>
+      <text x="290" y="22" text-anchor="middle" font-size="13" fill="#c53030" font-weight="700">Superaquecimento — Aplicando Pasta Térmica</text>
+
+      <rect x="20" y="35" width="120" height="70" rx="8" fill="#fed7d7" stroke="#fc8181" stroke-width="1"></rect>
+      <text x="80" y="58" text-anchor="middle" font-size="18"></text>
+      <text x="80" y="78" text-anchor="middle" font-size="11" fill="#742a2a" font-weight="600">Remova pasta</text>
+      <text x="80" y="93" text-anchor="middle" font-size="10" fill="#742a2a">álcool isopropílico</text>
+
+      <text x="160" y="72" text-anchor="middle" font-size="20" fill="#a0aec0">→</text>
+
+      <rect x="175" y="35" width="120" height="70" rx="8" fill="#fefcbf" stroke="#f6e05e" stroke-width="1"></rect>
+      <text x="235" y="58" text-anchor="middle" font-size="18"></text>
+      <text x="235" y="78" text-anchor="middle" font-size="11" fill="#975a16" font-weight="600">Nova pasta</text>
+      <text x="235" y="93" text-anchor="middle" font-size="10" fill="#975a16">tamanho de 1 grão de arroz</text>
+
+      <text x="315" y="72" text-anchor="middle" font-size="20" fill="#a0aec0">→</text>
+
+      <rect x="330" y="35" width="120" height="70" rx="8" fill="#c6f6d5" stroke="#48bb78" stroke-width="1"></rect>
+      <text x="390" y="58" text-anchor="middle" font-size="18"></text>
+      <text x="390" y="78" text-anchor="middle" font-size="11" fill="#276749" font-weight="600">Recoloque cooler</text>
+      <text x="390" y="93" text-anchor="middle" font-size="10" fill="#276749">aperte em forma de X</text>
+
+      <text x="470" y="72" text-anchor="middle" font-size="20" fill="#a0aec0">→</text>
+
+      <rect x="480" y="35" width="82" height="70" rx="8" fill="#bee3f8" stroke="#4299e1" stroke-width="1"></rect>
+      <text x="521" y="60" text-anchor="middle" font-size="18"></text>
+      <text x="521" y="80" text-anchor="middle" font-size="10" fill="#2c5282" font-weight="600">Limpe as</text>
+      <text x="521" y="95" text-anchor="middle" font-size="10" fill="#2c5282">ventoinhas</text>
+    </svg>
+  </div>
+
+
+  <h3>Problema 5 — "Reboot and select proper boot device"</h3>
+  <ul>
+    <li>Verifique o <strong>cabo SATA</strong> no HD/SSD e na placa-mãe.</li>
+    <li>Entre na <strong>BIOS (Del ou F2)</strong> e veja se o disco aparece na lista de boot.</li>
+    <li>Se o HD fizer <strong>clique clique metálico</strong> → backup urgente! Disco com dano físico.</li>
+  </ul>
+
+  <h3>Problema 6 — Data errada / "CMOS checksum error"</h3>
+  <ul>
+    <li>A bateria redonda (CR2032, 3V) está fraca. Abaixo de 2,9V = troca certa.</li>
+    <li>Retire, espere 30 segundos, coloque a nova.</li>
+    <li>Entre na BIOS, acerte data/hora e salve com <strong>F10</strong>.</li>
+  </ul>
+
+  <h3>Problema 7 — Barulhos Estranhos</h3>
+  <table>
+    <tbody><tr><th>Barulho</th><th>Causa provável</th><th>Solução</th></tr>
+    <tr><td>Vibração</td><td>Parafusos soltos</td><td>Aperte todos os parafusos do gabinete</td></tr>
+    <tr><td>Ventoinha alta</td><td>Poeira acumulada</td><td>Limpeza com ar comprimido</td></tr>
+    <tr><td>Rolamento ruim</td><td>Desgaste da ventoinha</td><td>Pingue uma gota de óleo fino no centro</td></tr>
+    <tr><td>Estalos no HD</td><td>Falha mecânica grave</td><td>Backup urgente e troca do disco</td></tr>
+  </tbody></table>
+</section>
+
+<section>
+  <h2 class="sec"><span class="icon"></span> Manutenção Preventiva (a cada 6 meses)</h2>
+  <div class="ilust">
+    <svg viewBox="0 0 600 90" width="90%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="600" height="90" rx="10" fill="#f0fff4"></rect>
+      <text x="300" y="22" text-anchor="middle" font-size="12" fill="#276749" font-weight="700">Rotina de Manutenção Preventiva</text>
+      <rect x="10" y="32" width="110" height="46" rx="7" fill="#c6f6d5" stroke="#48bb78" stroke-width="1"></rect>
+      <text x="65" y="52" text-anchor="middle" font-size="16"></text>
+      <text x="65" y="70" text-anchor="middle" font-size="10" fill="#276749">Tirar poeira</text>
+
+      <rect x="130" y="32" width="110" height="46" rx="7" fill="#c6f6d5" stroke="#48bb78" stroke-width="1"></rect>
+      <text x="185" y="52" text-anchor="middle" font-size="16"></text>
+      <text x="185" y="70" text-anchor="middle" font-size="10" fill="#276749">Limpar filtros</text>
+
+      <rect x="250" y="32" width="110" height="46" rx="7" fill="#c6f6d5" stroke="#48bb78" stroke-width="1"></rect>
+      <text x="305" y="52" text-anchor="middle" font-size="16"></text>
+      <text x="305" y="70" text-anchor="middle" font-size="10" fill="#276749">Organizar cabos</text>
+
+      <rect x="370" y="32" width="110" height="46" rx="7" fill="#c6f6d5" stroke="#48bb78" stroke-width="1"></rect>
+      <text x="425" y="52" text-anchor="middle" font-size="16"></text>
+      <text x="425" y="70" text-anchor="middle" font-size="10" fill="#276749">Ver capacitores</text>
+
+      <rect x="490" y="32" width="100" height="46" rx="7" fill="#c6f6d5" stroke="#48bb78" stroke-width="1"></rect>
+      <text x="540" y="52" text-anchor="middle" font-size="16"></text>
+      <text x="540" y="70" text-anchor="middle" font-size="10" fill="#276749">Testar tudo</text>
+    </svg>
+  </div>
+  <div class="success"><strong>Capacitor estufado?</strong> Parece uma pilha inchada na placa-mãe. Se encontrar, anote e avise o professor — é sinal de falha grave na placa-mãe.</div>
+</section>
+
+<section>
+  <h2 class="sec"><span class="icon"></span> Os 5 Mandamentos do Técnico</h2>
+  <div class="mandamentos">
+    <div class="mand"><div class="num">1</div><div><strong>Observe primeiro, mexa depois.</strong> Anote sintomas antes de abrir qualquer coisa.</div></div>
+    <div class="mand"><div class="num">2</div><div><strong>Isole o problema.</strong> Teste com o mínimo de peças possível.</div></div>
+    <div class="mand"><div class="num">3</div><div><strong>Troque uma peça por vez.</strong> Assim você sabe exatamente o que resolveu.</div></div>
+    <div class="mand"><div class="num">4</div><div><strong>Cuidado com estática.</strong> Sempre toque no metal antes de mexer nas peças.</div></div>
+    <div class="mand"><div class="num">5</div><div><strong>Anote tudo e tire fotos.</strong> Isso salva horas de trabalho.</div></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec"><span class="icon"></span> Glossário</h2>
+  <div class="gloss">
+    <div class="gitem"><div class="term">BIOS / UEFI</div>Programinha básico que acorda o hardware quando o PC é ligado.</div>
+    <div class="gitem"><div class="term">POST</div>Autoteste feito toda vez que o computador é ligado.</div>
+    <div class="gitem"><div class="term">Speaker</div>Alto-falante que emite os bips de erro.</div>
+    <div class="gitem"><div class="term">Beep code</div>Código de bips que indica onde está o problema.</div>
+    <div class="gitem"><div class="term">Driver</div>Programa que faz o Windows se comunicar com um dispositivo.</div>
+    <div class="gitem"><div class="term">ESD</div>Descarga eletrostática — pode queimar componentes sem você sentir nada.</div>
+  </div>
+</section>
+
+<section id="quiz">
+  <h2 class="sec"><span class="icon"></span> Quiz de Conhecimentos (20 Questões)</h2>
+  <div class="quiz-container" id="quiz-container">
+
+  </div>
+  <div class="quiz-footer">
+    <button class="btn-result" onclick="checkAnswers()">Verificar Resultado</button>
+    <div id="score-display"></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+const questions = [
+  { q: "Qual é a primeira regra de segurança antes de abrir um computador?", a: ["Ligar o filtro de linha", "Desligar da tomada", "Tirar fotos das peças", "Limpar o gabinete"], c: 1 },
+  { q: "Por quanto tempo você deve tocar no metal do gabinete para descarregar a estática?", a: ["1 segundo", "5 segundos", "10 segundos", "30 segundos"], c: 2 },
+  { q: "Qual componente nunca deve ser aberto por um técnico iniciante devido ao risco de choque?", a: ["Placa-mãe", "Processador", "Disco Rígido", "Fonte de alimentação"], c: 3 },
+  { q: "Qual peça é considerada o 'cérebro' do computador?", a: ["Memória RAM", "Placa de vídeo", "Processador (CPU)", "Placa-mãe"], c: 2 },
+  { q: "Onde ficam armazenados o Windows e seus arquivos pessoais?", a: ["Memória RAM", "HD ou SSD", "Processador", "BIOS"], c: 1 },
+  { q: "Qual componente é responsável por gerar a imagem no monitor?", a: ["Placa de vídeo (GPU)", "Memória RAM", "Fonte", "Cooler"], c: 0 },
+  { q: "O que significa o código de 1 bip curto na maioria das BIOS?", a: ["Erro de memória", "Erro de vídeo", "Tudo normal (POST OK)", "Falha no processador"], c: 2 },
+  { q: "Qual é o procedimento correto para limpar os contatos de uma memória RAM?", a: ["Lavar com água", "Usar álcool comum", "Passar uma borracha", "Usar um pano úmido"], c: 2 },
+  { q: "Se o PC liga mas não dá imagem, qual peça é a primeira suspeita?", a: ["HD/SSD", "Memória RAM", "Bateria CMOS", "Gabinete"], c: 1 },
+  { q: "Qual cabo conecta o HD ou SSD à placa-mãe?", a: ["Cabo HDMI", "Cabo de força", "Cabo SATA", "Cabo VGA"], c: 2 },
+  { q: "O que indica a mensagem 'CMOS Checksum Error'?", a: ["HD queimado", "Bateria fraca", "RAM suja", "CPU quente"], c: 1 },
+  { q: "Qual a quantidade ideal de pasta térmica ao trocar o cooler?", a: ["Cobrir toda a peça", "Uma colher de chá", "Tamanho de um grão de arroz", "Não precisa de pasta"], c: 2 },
+  { q: "O que o POST (Power-On Self-Test) faz?", a: ["Limpa os arquivos", "Testa o hardware ao ligar", "Instala o Windows", "Aumenta a velocidade"], c: 1 },
+  { q: "Se o HD faz um 'clique clique' metálico, o que você deve fazer?", a: ["Formatar o PC", "Limpar os cabos", "Backup urgente e troca", "Ignorar o barulho"], c: 2 },
+  { q: "Para que serve a bateria redonda (CR2032) na placa-mãe?", a: ["Dar energia ao PC", "Manter data e hora", "Resfriar a CPU", "Aumentar a memória"], c: 1 },
+  { q: "O que é ESD no contexto de manutenção?", a: ["Erro de Sistema de Disco", "Descarga Eletrostática", "Entrada de Som Digital", "Energia de Saída Direta"], c: 1 },
+  { q: "Qual o sinal visual de que um capacitor na placa-mãe está com defeito?", a: ["Ele fica brilhando", "Ele fica estufado/inchado", "Ele muda de cor", "Ele desaparece"], c: 1 },
+  { q: "Como deve ser feito o aperto dos parafusos do cooler do processador?", a: ["Em sentido horário", "Um por um até o fim", "Em forma de X", "Apenas dois parafusos"], c: 2 },
+  { q: "O que fazer se o PC desliga sozinho após alguns minutos de uso?", a: ["Trocar o teclado", "Verificar superaquecimento", "Trocar o monitor", "Reinstalar o Windows"], c: 1 },
+  { q: "Qual o 1º mandamento do técnico de manutenção?", a: ["Trocar todas as peças", "Observe primeiro, mexa depois", "Formatar o computador", "Abrir a fonte rápido"], c: 1 }
+];
+
+function loadQuiz() {
+  const container = document.getElementById('quiz-container');
+  questions.forEach((item, index) => {
+    const qDiv = document.createElement('div');
+    qDiv.className = 'question';
+    qDiv.innerHTML = `
+      <p>${index + 1}. ${item.q}</p>
+      <div class="options" id="q${index}">
+        ${item.a.map((opt, i) => `
+          <div class="option" onclick="selectOption(${index}, ${i})">
+            <strong>${String.fromCharCode(65 + i)})</strong> ${opt}
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(qDiv);
+  });
+}
+
+const userAnswers = new Array(questions.length).fill(null);
+
+function selectOption(qIndex, oIndex) {
+  userAnswers[qIndex] = oIndex;
+  const options = document.querySelectorAll(`#q${qIndex} .option`);
+  options.forEach((opt, i) => {
+    opt.classList.remove('selected');
+    if (i === oIndex) opt.classList.add('selected');
+  });
+}
+
+function checkAnswers() {
+  let score = 0;
+  questions.forEach((item, index) => {
+    const options = document.querySelectorAll(`#q${index} .option`);
+    options.forEach((opt, i) => {
+      opt.classList.remove('correct', 'wrong');
+      if (i === item.c) {
+        opt.classList.add('correct');
+      } else if (i === userAnswers[index]) {
+        opt.classList.add('wrong');
+      }
+    });
+    if (userAnswers[index] === item.c) score++;
+  });
+
+  const display = document.getElementById('score-display');
+  display.style.display = 'block';
+  display.innerHTML = `Você acertou ${score} de ${questions.length} questões! (${(score/questions.length*100).toFixed(0)}%)`;
+  
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: 'smooth'
+  });
+}
+
+window.onload = loadQuiz;
+</script>
+</body></html>
